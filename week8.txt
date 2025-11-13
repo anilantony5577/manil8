@@ -1,0 +1,30 @@
+ # Required Libraries
+ import numpy as np
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LogisticRegression
+ from sklearn.datasets import load_iris
+ from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+ # Loading the dataset (using Iris dataset as an example)
+ data = load_iris()
+ X = data.data
+ y = data.target
+ # Selecting only two classes for binary classification
+ X = X[y != 2, :2] # Using only the first two features for easy visualization
+ y = y[y != 2]
+ # Splitting the dataset into training and testing sets
+ 23
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+ # Creating the Logistic Regression model
+ model = LogisticRegression()
+ # Training the model
+ model.fit(X_train, y_train)
+ # Making predictions
+ y_pred = model.predict(X_test)
+ # Evaluating the model
+ accuracy = accuracy_score(y_test, y_pred)
+ conf_matrix = confusion_matrix(y_test, y_pred)
+ class_report = classification_report(y_test, y_pred)
+ # Printing evaluation metrics
+ print("Accuracy:", accuracy)
+ print("Confusion Matrix:\n", conf_matrix)
+ print("Classification Report:\n", class_report)
