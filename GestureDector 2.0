@@ -1,0 +1,65 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  debugPrintGestureArenaDiagnostics = true;
+  runApp(const App());
+}
+
+enum Winner { none, yellow, green }
+
+class App extends StatelessWidget {
+  const App({super.key});
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(title: const Text('Nested GestureDetectors')),
+          body: const Example(),
+        ),
+      );
+}
+
+class Example extends StatefulWidget {
+  const Example({super.key});
+  @override
+  State<Example> createState() => _ExampleState();
+}
+
+class _ExampleState extends State<Example> {
+  bool translucent = false;
+  Winner winner = Winner.none;
+
+  @override
+  Widget build(BuildContext context) {
+    final border = Border.all(color: Colors.red, width: 5);
+
+    return GestureDetector(
+      onTap: () => setState(() => winner = Winner.green),
+      onTapDown: (_) => debugPrint('Green onTapDown'),
+      onTapCancel: () => debugPrint('Green onTapCancel'),
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: Colors.green,
+            border: winner == Winner.green ? border : null),
+        child: GestureDetector(
+          behavior:
+              translucent ? HitTestBehavior.translucent : HitTestBehavior.opaque,
+          onTap: () => setState(() => winner = Winner.yellow),
+          child: Container(
+            width: 200,
+            height: 200,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: Colors.amber,
+                border: winner == Winner.yellow ? border : null),
+            child: Text(
+              'HitTestBehavior.${translucent ? 'translucent' : 'opaque'}',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
