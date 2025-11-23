@@ -1,0 +1,19 @@
+abstract class Shape {
+  double area(); // abstract method
+}
+
+class Circle implements Shape {
+  double radius;
+
+  Circle(this.radius);
+
+  @override
+  double area() {
+    return 3.14 * radius * radius;
+  }
+}
+
+void main() {
+  var circle = Circle(5);
+  print('Area of the circle: ${circle.area()}');
+}
