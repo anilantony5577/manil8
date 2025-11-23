@@ -1,0 +1,26 @@
+class Person {
+  String name;
+  int age;
+
+  Person(this.name, this.age);
+
+  void greet() {
+    print('Hello, my name is $name and I am $age years old.');
+  }
+}
+
+class Student extends Person {
+  String major;
+
+  Student(String name, int age, this.major) : super(name, age);
+
+  @override
+  void greet() {
+    print('Hi, I am a student named $name studying $major.');
+  }
+}
+
+void main() {
+  var student1 = Student('Bob', 20, 'Computer Science');
+  student1.greet();
+}
