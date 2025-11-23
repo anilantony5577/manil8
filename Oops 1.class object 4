@@ -1,0 +1,17 @@
+class Person {
+  String name;
+  int age;
+
+  // Constructor
+  Person(this.name, this.age);
+
+  // Method to greet
+  void greet() {
+    print('Hello, my name is $name and I am $age years old.');
+  }
+}
+
+void main() {
+  var person1 = Person('Alice', 30);
+  person1.greet();
+}
